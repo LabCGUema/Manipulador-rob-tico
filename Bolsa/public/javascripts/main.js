@@ -52,7 +52,7 @@ function init() {
 
 }
 
-function createScene(geometry, materials, x, y, z, scale,bones) {
+function createScene(geometry, materials, x, y, z, scale, bones) {
 
 
     zmesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
@@ -60,6 +60,7 @@ function createScene(geometry, materials, x, y, z, scale,bones) {
     zmesh.scale.set(scale, scale, scale);
     meshes.push(zmesh);
     scene.add(zmesh);
+
 
 }
 
