@@ -6,22 +6,7 @@
   <script src="/public/javascripts/jquery.min.js"></script>
   <script src="/node_modules/socket.io-client/socket.io.js"></script>
   <script src="/node_modules/three/build/three.js"></script>
-  <script>
 
-    $(document).ready(function() {
-      var socket = io.connect('http://localhost:8080');
-      $('#enviar').click(function(e){
-        var s1 = $("#base").val();
-        var s2 = $("#eixo1").val();
-        var s3 = $("#eixo2").val();
-        var data = {servo1: s1,servo2:s2,servo3:s3};
-        console.log(data);
-        socket.emit('click',data);
-        e.preventDefault();
-      });
-
-    });
-  </script>
 </head>
 <body>
 <div class="container">
@@ -31,7 +16,6 @@
   <input id="eixo2" class="input-lg" placeholder="Eixo 2">
   <button  id="enviar" href="#" class="btn btn-success">Enviar</button>
 -->
-
 
 
 </div>

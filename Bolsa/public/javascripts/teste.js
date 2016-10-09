@@ -143,7 +143,7 @@ function setupDatGui () {
 
     var bones = mesh.skeleton.bones;
 
-    var socket = io.connect('http://localhost:8080');
+
 
     var data ={};
 
@@ -185,15 +185,20 @@ var controllerRotationZ=[];
 
     // Envia dados do Servo da Base
     controllerRotationY[0].onFinishChange(function(value){
-     var a = Math
-    alert(value);
-
-
+     var angulo = value * 180 / Math.PI;
+        var socket = io.connect('http://localhost:8080');
+        data1 = {servo1: angulo};
+        console.log(data1);
+        socket.emit('base',data1);
     });
 
     // Envia dados do Servo do Eixo 1
     controllerRotationZ[1].onFinishChange(function(value){
-
+        var angulo = value * 180 / Math.PI;
+        var socket = io.connect('http://localhost:8080');
+        data2 = {servo2: angulo};
+        console.log(data2);
+        socket.emit('one',data2);
 
 
 
@@ -201,9 +206,11 @@ var controllerRotationZ=[];
 
     // Envia dados do Servo do Eixo 2
     controllerRotationZ[2].onFinishChange(function(value){
-
-
-
+        var angulo = value * 180 / Math.PI;
+        var socket = io.connect('http://localhost:8080');
+        data3 = {servo3: angulo};
+        console.log(data3);
+        socket.emit('two',data3);
 
     });
 

@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+
 
 
 
@@ -66,22 +66,37 @@ app.use(function(err, req, res, next) {
 var board = new five.Board();
 
 board.on("ready", function() {
-  servo1 = new five.Servo(2);
-  servo2 = new five.Servo(3);
-  servo3 = new five.Servo(4);
+  var servo1 = new five.Servo(2);
+  var servo2 = new five.Servo(3);
+  var servo3 = new five.Servo(4);
 
-  io.sockets.on('connection', function (socket) {
-    socket.on('data', function (data) {
+    io.sockets.on('connection', function (socket) {
+    socket.on('base', function (data) {
       console.log("Movendo Braco");
       console.log('motor base: ',data.servo1);
-      console.log('motor eixo1: ',data.servo2);
-      console.log('motor eixo2: ',data.servo3);
-// Movimentação o braço para a posição desejada
       servo1.to(data.servo1);
-      servo2.to(data.servo2);
-      servo3.to(data.servo3);
     });
+
+      socket.on('one', function (data) {
+        console.log("Movendo Braco");
+        console.log('motor eixo 1: ',data.servo2);
+        servo2.to(data.servo2);
+      });
+
+      socket.on('two', function (data) {
+        console.log("Movendo Braco");
+        console.log('motor eixo 2: ',data.servo3);
+        servo3.to(data.servo3);
+      });
+
+
+
+
+
+    });
+
+
+
   });
-});
 
 module.exports = app;
