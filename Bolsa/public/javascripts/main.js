@@ -1,12 +1,12 @@
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 
-var container;
+var container, orbit;
 
 var camera, scene;
-var canvasRenderer, webglRenderer;
+var webglRenderer;
 
-var mesh, zmesh, geometry, materials;
+var mesh, materials;
 
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
@@ -26,6 +26,8 @@ function init() {
     camera.position.y = 40;
     camera.position.z = 5;
 
+
+
     scene = new THREE.Scene();
 
     // LIGHTS
@@ -41,9 +43,14 @@ function init() {
     webglRenderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     webglRenderer.domElement.style.position = "relative";
 
+    // Habilita controles do objeto
+    orbit = new THREE.OrbitControls( camera, webglRenderer.domElement );
+    orbit.enableZoom = true;
+
+
     container.appendChild(webglRenderer.domElement);
     var loader = new THREE.JSONLoader(),
-        callbackKey = function (geometry, materials,bones) {
+        callbackKey = function (geometry, materials) {
             createScene(geometry, materials, 0, 0, 0, 6);
         };
     loader.load("public/images/manipulador.js", callbackKey);
@@ -83,11 +90,28 @@ function onWindowResize() {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+   requestAnimationFrame(animate);
     render();
 }
 
 function render() {
-    camera.lookAt(scene.position);
+
+    $('#enviar').click(function(){
+
+        mesh.skeleton.bones[0].rotation.z =  $("#base").val() * Math.PI/180;
+        mesh.skeleton.bones[1].rotation.z =  $("#eixo1").val() * Math.PI/180;
+        mesh.skeleton.bones[2].rotation.z =  $("#eixo2").val() * Math.PI/180;
+
+
+});
+
+
+
+
+
+
+
+camera.lookAt(scene.position);
     webglRenderer.render(scene, camera);
 }
+

@@ -71,7 +71,7 @@ board.on("ready", function() {
   servo3 = new five.Servo(4);
 
   io.sockets.on('connection', function (socket) {
-    socket.on('click', function (data) {
+    socket.on('data', function (data) {
       console.log("Movendo Braco");
       console.log('motor base: ',data.servo1);
       console.log('motor eixo1: ',data.servo2);
