@@ -184,7 +184,7 @@ var controllerRotationZ=[];
     }
 
     // Envia dados do Servo da Base
-    controllerRotationY[0].onFinishChange(function(value){
+    controllerRotationY[0].onChange(function(value){
      var angulo = value * 180 / Math.PI;
         var socket = io.connect('http://localhost:8080');
         data1 = {servo1: angulo};
