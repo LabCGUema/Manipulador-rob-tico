@@ -1,7 +1,7 @@
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 
-var container;
+var container, orbit;
 
 var camera, scene;
 var canvasRenderer, webglRenderer;
@@ -26,6 +26,8 @@ function init() {
     camera.position.y = 40;
     camera.position.z = 5;
 
+
+
     scene = new THREE.Scene();
 
     // LIGHTS
@@ -40,6 +42,11 @@ function init() {
     webglRenderer = new THREE.WebGLRenderer();
     webglRenderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     webglRenderer.domElement.style.position = "relative";
+
+    // Habilita rotacionar o objeto
+    orbit = new THREE.OrbitControls( camera, webglRenderer.domElement );
+    orbit.enableZoom = true;
+
 
     container.appendChild(webglRenderer.domElement);
     var loader = new THREE.JSONLoader(),
@@ -88,6 +95,8 @@ function animate() {
 }
 
 function render() {
+
+
     camera.lookAt(scene.position);
     webglRenderer.render(scene, camera);
 }
