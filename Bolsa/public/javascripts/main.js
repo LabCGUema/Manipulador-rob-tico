@@ -44,7 +44,7 @@ function init() {
     container.appendChild(webglRenderer.domElement);
     var loader = new THREE.JSONLoader(),
         callbackKey = function (geometry, materials,bones) {
-            createScene(geometry, materials, 0, 0, 0, 6,bones);
+            createScene(geometry, materials, 0, 0, 0, 6);
         };
     loader.load("public/images/manipulador.js", callbackKey);
 
@@ -52,15 +52,22 @@ function init() {
 
 }
 
-function createScene(geometry, materials, x, y, z, scale, bones) {
+function createScene(geometry, material, x, y, z, scale) {
+    material.skinning = true;
+    mesh = new THREE.SkinnedMesh(geometry, new THREE.MeshFaceMaterial(material));
+    mesh.position.set(x, y, z);
+    mesh.scale.set(scale, scale, scale);
+    meshes.push(mesh);
 
 
-    zmesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
-    zmesh.position.set(x, y, z);
-    zmesh.scale.set(scale, scale, scale);
-    meshes.push(zmesh);
-    scene.add(zmesh);
 
+
+    var helpset = new THREE.SkeletonHelper(mesh);
+    scene.add(helpset);
+
+
+
+    scene.add(mesh);
 
 }
 
@@ -76,9 +83,6 @@ function onWindowResize() {
 }
 
 function animate() {
-    for (var i = 0; i < meshes.length; i++) {
-        meshes[i].rotation.y += 0.01;
-    }
     requestAnimationFrame(animate);
     render();
 }
