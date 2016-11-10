@@ -58,13 +58,21 @@ function initScene () {
 
 function createGeometry ( sizing ) {
 
-    var geometry = new THREE.CylinderGeometry(
+  /*  var geometry = new THREE.CylinderGeometry(
         4,                       // radiusTop
         4,                       // radiusBottom
         sizing.height,           // height
         8,                       // radiusSegments
         sizing.segmentCount , // heightSegments
         true                     // openEnded
+    );*/
+    var geometry = new THREE.BoxGeometry(
+      4,
+      sizing.height,
+      4,
+      1,
+      4,
+      4
     );
 
     for ( var i = 0; i < geometry.vertices.length; i ++ ) {
@@ -184,7 +192,7 @@ var controllerRotationZ=[];
     }
 
     // Envia dados do Servo da Base
-    controllerRotationY[0].onChange(function(value){
+    controllerRotationY[0].onFinishChange(function(value){
      var angulo = value * 180 / Math.PI;
         var socket = io.connect('http://localhost:8080');
         data1 = {servo1: angulo};
